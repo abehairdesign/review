@@ -1,23 +1,21 @@
 <!DOCTYPE html>
-<html lang="ja">
-<head>
-<meta charset="UTF-8">
+<!-- saved from url=(0059)file:///C:/Users/Owner/Downloads/review-draft-helper_8.html -->
+<html lang="ja"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>口コミ下書きサポート</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com/">
+<link href="./口コミ下書きサポート2_files/css2" rel="stylesheet">
 <style>
   :root{
     --ink:#2A211D;
     --ink-soft:#5C4F47;
     --paper:#F6F1E7;
-    --paper-deep:#EFE6D5;
     --card:#FBF8F2;
     --accent:#9C3B43;
     --accent-2:#B4903D;
     --line:#DCCFB6;
-    --good:#5B6E4F;
-    --shadow: 0 10px 30px rgba(42,33,29,0.08);
+    --shadow: 0 8px 24px rgba(42,33,29,0.07);
   }
   *{box-sizing:border-box;}
   html,body{margin:0;padding:0;}
@@ -28,342 +26,175 @@
       var(--paper);
     color:var(--ink);
     font-family:'Zen Kaku Gothic New', 'Hiragino Sans', sans-serif;
-    line-height:1.8;
+    line-height:1.75;
     min-height:100vh;
-    padding:0 0 80px;
+    padding-bottom:110px;
   }
-  .container{max-width:720px;margin:0 auto;padding:0 20px;}
+  .container{max-width:640px;margin:0 auto;padding:0 16px;}
 
-  /* ---------- Header ---------- */
-  header.hero{
-    padding:56px 20px 40px;
-    text-align:center;
-    position:relative;
-  }
-  .eyebrow{
-    font-size:12px;
-    letter-spacing:0.28em;
-    color:var(--accent);
-    font-weight:700;
-    margin-bottom:14px;
-  }
-  h1{
-    font-family:'Shippori Mincho', serif;
-    font-size:clamp(28px,5vw,40px);
-    font-weight:700;
-    margin:0 0 16px;
-    letter-spacing:0.04em;
-  }
-  .lede{
-    max-width:480px;
-    margin:0 auto;
-    color:var(--ink-soft);
-    font-size:15px;
-  }
+  header.hero{padding:36px 16px 24px;text-align:center;}
+  .eyebrow{font-size:11px;letter-spacing:.24em;color:var(--accent);font-weight:700;margin-bottom:10px;}
+  h1{font-family:'Shippori Mincho',serif;font-size:clamp(24px,6vw,32px);font-weight:700;margin:0 0 12px;}
+  .lede{max-width:460px;margin:0 auto;color:var(--ink-soft);font-size:14px;}
   .promise{
-    max-width:560px;
-    margin:28px auto 0;
-    background:var(--card);
-    border:1px solid var(--line);
-    border-radius:4px;
-    padding:16px 20px;
-    font-size:13px;
-    color:var(--ink-soft);
-    text-align:left;
-    position:relative;
+    max-width:560px;margin:20px auto 0;background:var(--card);
+    border:1px solid var(--line);border-radius:4px;padding:14px 16px;
+    font-size:12.5px;color:var(--ink-soft);text-align:left;position:relative;
   }
   .promise b{color:var(--ink);}
-  .promise::before{
-    content:"";
-    position:absolute;
-    left:0;top:12px;bottom:12px;
-    width:3px;
-    background:var(--accent-2);
-  }
+  .promise::before{content:"";position:absolute;left:0;top:10px;bottom:10px;width:3px;background:var(--accent-2);}
 
-  /* ---------- Progress ---------- */
-  .progress{
-    display:flex;
-    justify-content:center;
-    gap:6px;
-    margin:36px 0 8px;
-  }
-  .progress .dot{
-    width:26px;height:3px;
-    background:var(--line);
-    border-radius:2px;
-    transition:background .25s;
-  }
-  .progress .dot.active{background:var(--accent);}
-  .progress .dot.done{background:var(--accent-2);}
-
-  .step-label{
-    text-align:center;
-    font-size:12px;
-    color:var(--ink-soft);
-    letter-spacing:.1em;
-    margin-bottom:28px;
-  }
-
-  /* ---------- Card / Step panel ---------- */
-  .panel{
+  section.block{
     background:var(--card);
     border:1px solid var(--line);
     border-radius:6px;
-    padding:32px 28px;
+    padding:20px 18px;
     box-shadow:var(--shadow);
-    margin-bottom:20px;
+    margin-bottom:14px;
   }
-  .panel h2{
-    font-family:'Shippori Mincho', serif;
-    font-size:21px;
-    margin:0 0 6px;
-    display:flex;
-    align-items:baseline;
-    gap:10px;
-  }
-  .panel h2 .num{
-    font-size:12px;
-    color:#fff;
-    background:var(--accent);
-    border-radius:50%;
-    width:22px;height:22px;
-    display:inline-flex;
-    align-items:center;justify-content:center;
-    font-family:'Zen Kaku Gothic New',sans-serif;
-    flex:none;
-  }
-  .panel .hint{
-    font-size:13px;
-    color:var(--ink-soft);
-    margin:0 0 22px;
-  }
-  .optional-tag{
-    font-size:11px;
-    color:var(--accent-2);
-    border:1px solid var(--accent-2);
-    border-radius:20px;
-    padding:1px 10px;
-    margin-left:auto;
-  }
-
-  /* store cards */
-  .store-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
-  @media(max-width:520px){.store-grid{grid-template-columns:1fr;}}
-  .store-card{
-    border:1.5px solid var(--line);
-    border-radius:6px;
-    padding:18px 16px;
-    cursor:pointer;
-    background:var(--paper);
-    transition:border-color .15s, background .15s, transform .1s;
-    text-align:left;
-  }
-  .store-card:hover{transform:translateY(-2px);}
-  .store-card.selected{
-    border-color:var(--accent);
-    background:#fff;
-    box-shadow:0 4px 14px rgba(156,59,67,0.12);
-  }
-  .store-card .name{
+  section.block h2{
     font-family:'Shippori Mincho',serif;
     font-size:17px;
-    font-weight:700;
-    margin-bottom:6px;
+    margin:0 0 4px;
+    display:flex;align-items:center;gap:8px;
   }
-  .store-card .loc{
-    font-size:12px;
-    color:var(--ink-soft);
+  section.block .hint{font-size:12.5px;color:var(--ink-soft);margin:0 0 14px;}
+  .optional-tag{
+    font-size:10.5px;color:var(--accent-2);border:1px solid var(--accent-2);
+    border-radius:20px;padding:1px 9px;margin-left:auto;flex:none;
   }
+  .required-mark{color:var(--accent);font-size:12px;}
+
+  .store-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+  @media(max-width:480px){.store-grid{grid-template-columns:1fr;}}
+  .store-card{
+    border:1.5px solid var(--line);border-radius:6px;padding:14px 14px;
+    cursor:pointer;background:var(--paper);text-align:left;
+    -webkit-tap-highlight-color:transparent;
+  }
+  .store-card.selected{border-color:var(--accent);background:#fff;box-shadow:0 3px 10px rgba(156,59,67,.12);}
+  .store-card .name{font-family:'Shippori Mincho',serif;font-size:15.5px;font-weight:700;margin-bottom:4px;}
+  .store-card .loc{font-size:11.5px;color:var(--ink-soft);}
 
   input[type=text]{
-    width:100%;
-    padding:12px 14px;
-    border:1px solid var(--line);
-    border-radius:4px;
-    background:var(--paper);
-    font-family:inherit;
-    font-size:14px;
-    color:var(--ink);
+    width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:4px;
+    background:var(--paper);font-family:inherit;font-size:16px;color:var(--ink);
   }
   input[type=text]:focus{outline:2px solid var(--accent-2);outline-offset:1px;}
 
-  .chip-grid{
-    display:flex;
-    flex-wrap:wrap;
-    gap:10px;
-  }
+  .chip-grid{display:flex;flex-wrap:wrap;gap:8px;}
   .chip{
-    border:1.5px solid var(--line);
-    background:var(--paper);
-    border-radius:24px;
-    padding:9px 16px;
-    font-size:13.5px;
-    cursor:pointer;
-    color:var(--ink);
-    transition:all .12s;
-    user-select:none;
+    border:1.5px solid var(--line);background:var(--paper);border-radius:22px;
+    padding:9px 15px;font-size:13.5px;cursor:pointer;color:var(--ink);
+    -webkit-tap-highlight-color:transparent; user-select:none;
   }
-  .chip:hover{border-color:var(--accent-2);}
-  .chip.selected{
-    background:var(--accent);
-    border-color:var(--accent);
-    color:#fff;
-  }
-  .chip.none-option{font-style:italic;}
+  .chip.selected{background:var(--accent);border-color:var(--accent);color:#fff;}
+  .placeholder-text{font-size:12.5px;color:var(--ink-soft);font-style:italic;}
 
-  .radio-list{display:flex;flex-direction:column;gap:10px;}
-  .radio-item{
-    border:1.5px solid var(--line);
-    background:var(--paper);
-    border-radius:4px;
-    padding:12px 16px;
-    cursor:pointer;
-    font-size:14px;
+  /* access toggle */
+  .toggle-row{
+    display:flex;align-items:center;justify-content:space-between;
+    gap:12px;cursor:pointer;
   }
-  .radio-item.selected{border-color:var(--accent);background:#fff;}
-  .radio-item .sub{display:block;font-size:12px;color:var(--ink-soft);margin-top:3px;}
+  .toggle-row .txt{font-size:13.5px;}
+  .toggle-row .txt small{display:block;color:var(--ink-soft);font-size:11.5px;margin-top:2px;font-style:normal;}
+  .switch{
+    position:relative;width:44px;height:26px;flex:none;
+    background:var(--line);border-radius:14px;transition:background .15s;
+  }
+  .switch::after{
+    content:"";position:absolute;top:3px;left:3px;width:20px;height:20px;
+    background:#fff;border-radius:50%;transition:transform .15s;box-shadow:0 1px 3px rgba(0,0,0,.25);
+  }
+  .switch.on{background:var(--accent);}
+  .switch.on::after{transform:translateX(18px);}
+  .access-facts{
+    margin-top:14px;padding-top:14px;border-top:1px dashed var(--line);
+    display:none;
+  }
+  .access-facts.show{display:block;}
+  .access-facts .lead{font-size:12.5px;color:var(--ink-soft);margin-bottom:10px;}
 
-  .nav-row{
-    display:flex;
-    justify-content:space-between;
-    margin-top:26px;
+  /* sticky bottom bar */
+  .sticky-bar{
+    position:fixed;left:0;right:0;bottom:0;
+    background:linear-gradient(0deg, var(--paper) 60%, transparent);
+    padding:18px 16px 16px;
+    z-index:20;
   }
-  button{
-    font-family:'Zen Kaku Gothic New',sans-serif;
-    font-size:14px;
-    cursor:pointer;
-    border-radius:4px;
-    border:none;
-    padding:12px 26px;
-  }
-  .btn-primary{
-    background:var(--accent);
-    color:#fff;
-    font-weight:700;
+  .sticky-bar .inner{max-width:640px;margin:0 auto;}
+  .sticky-bar button{
+    width:100%;padding:15px;font-size:15px;font-weight:700;
+    background:var(--accent);color:#fff;border:none;border-radius:30px;
+    box-shadow:0 6px 18px rgba(156,59,67,.28);
     letter-spacing:.03em;
   }
-  .btn-primary:hover{background:#832F36;}
-  .btn-primary:disabled{background:#cbbfae;cursor:not-allowed;}
-  .btn-ghost{
-    background:transparent;
-    color:var(--ink-soft);
-    border:1px solid var(--line);
+  .sticky-bar button:active{background:#832F36;}
+  .sticky-bar .missing{
+    text-align:center;font-size:11.5px;color:var(--accent);margin-top:6px;min-height:14px;
   }
-  .btn-ghost:hover{border-color:var(--ink-soft);}
 
   /* ---------- Draft output ---------- */
   #draftSection{display:none;}
   .letter{
-    position:relative;
-    background:var(--card);
-    border:1px solid var(--line);
-    border-radius:2px;
-    padding:36px 30px 26px;
-    box-shadow:var(--shadow);
-    background-image:
-      repeating-linear-gradient(var(--card) 0 27px, #e8dfc9 27px 28px);
-    background-position: 0 46px;
+    position:relative;background:var(--card);border:1px solid var(--line);border-radius:2px;
+    padding:30px 22px 22px;box-shadow:var(--shadow);
+    background-image:repeating-linear-gradient(var(--card) 0 27px, #e8dfc9 27px 28px);
+    background-position:0 44px;
   }
   .letter::before{
-    content:"下書き";
-    position:absolute;
-    top:18px; right:22px;
-    width:52px;height:52px;
-    border:2px solid var(--accent);
-    color:var(--accent);
-    border-radius:50%;
-    display:flex;align-items:center;justify-content:center;
-    font-family:'Shippori Mincho',serif;
-    font-size:13px;
-    font-weight:700;
-    letter-spacing:.05em;
-    transform:rotate(-8deg);
-    opacity:.85;
-    line-height:1.3;
-    text-align:center;
+    content:"下書き";position:absolute;top:14px;right:16px;width:48px;height:48px;
+    border:2px solid var(--accent);color:var(--accent);border-radius:50%;
+    display:flex;align-items:center;justify-content:center;font-family:'Shippori Mincho',serif;
+    font-size:12px;font-weight:700;transform:rotate(-8deg);opacity:.85;text-align:center;
     background:rgba(255,255,255,.4);
   }
-  .letter-head{
-    font-family:'Shippori Mincho',serif;
-    font-size:18px;
-    margin:0 0 18px;
-    padding-bottom:14px;
-    border-bottom:1px dashed var(--line);
-  }
+  .letter-head{font-family:'Shippori Mincho',serif;font-size:16.5px;margin:0 0 16px;padding-bottom:12px;border-bottom:1px dashed var(--line);}
   textarea{
-    width:100%;
-    min-height:230px;
-    border:none;
-    background:transparent;
-    resize:vertical;
-    font-family:'Zen Kaku Gothic New',sans-serif;
-    font-size:15px;
-    line-height:28px;
-    color:var(--ink);
-    padding:0;
+    width:100%;min-height:220px;border:none;background:transparent;resize:vertical;
+    font-family:'Zen Kaku Gothic New',sans-serif;font-size:15px;line-height:28px;color:var(--ink);padding:0;
   }
   textarea:focus{outline:none;}
   .letter-foot{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin-top:10px;
-    padding-top:10px;
-    border-top:1px dashed var(--line);
-    font-size:12px;
-    color:var(--ink-soft);
+    display:flex;justify-content:space-between;align-items:center;margin-top:8px;padding-top:8px;
+    border-top:1px dashed var(--line);font-size:11.5px;color:var(--ink-soft);
   }
+  .draft-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px;}
+  .draft-actions button{
+    flex:1;min-width:130px;padding:13px;border-radius:4px;border:none;font-size:13.5px;cursor:pointer;
+  }
+  .btn-primary2{background:var(--accent);color:#fff;font-weight:700;}
+  .btn-ghost2{background:transparent;color:var(--ink-soft);border:1px solid var(--line);}
 
-  .draft-actions{
-    display:flex;
-    gap:10px;
-    flex-wrap:wrap;
-    margin-top:18px;
+  .post-caption{
+    text-align:center;font-size:12px;color:var(--ink-soft);margin:22px 0 10px;
   }
-  .draft-actions button{flex:1;min-width:140px;}
+  .post-links{display:flex;gap:10px;flex-wrap:wrap;}
+  .post-links a{
+    flex:1;min-width:130px;text-align:center;padding:13px;border-radius:4px;font-size:13.5px;
+    text-decoration:none;font-weight:700;border:none;cursor:pointer;
+  }
+  .post-links a.google{background:var(--accent);color:#fff;}
+  .post-links a.hotpepper{background:var(--accent-2);color:#fff;}
+  .post-links a.homepage{background:transparent;color:var(--ink-soft);border:1px solid var(--line);}
 
-  .checklist{
-    margin-top:26px;
-    background:var(--card);
-    border:1px solid var(--line);
-    border-radius:6px;
-    padding:22px 24px;
+  .checklist{margin-top:20px;background:var(--card);border:1px solid var(--line);border-radius:6px;padding:18px 20px;}
+  .checklist h3{font-family:'Shippori Mincho',serif;font-size:14px;margin:0 0 10px;color:var(--accent);}
+  .checklist ul{margin:0;padding-left:18px;font-size:13px;color:var(--ink-soft);}
+  .checklist li{margin-bottom:5px;}
+  .final-note{
+    margin-top:16px;text-align:center;font-size:11.5px;color:var(--ink-soft);font-style:italic;
   }
-  .checklist h3{
-    font-family:'Shippori Mincho',serif;
-    font-size:15px;
-    margin:0 0 12px;
-    color:var(--accent);
-  }
-  .checklist ul{margin:0;padding-left:20px;font-size:13.5px;color:var(--ink-soft);}
-  .checklist li{margin-bottom:6px;}
 
   .toast{
-    position:fixed;
-    bottom:26px; left:50%;
-    transform:translateX(-50%) translateY(20px);
-    background:var(--ink);
-    color:#fff;
-    padding:11px 22px;
-    border-radius:30px;
-    font-size:13px;
-    opacity:0;
-    transition:opacity .25s, transform .25s;
-    pointer-events:none;
+    position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(20px);
+    background:var(--ink);color:#fff;padding:10px 20px;border-radius:30px;font-size:12.5px;
+    opacity:0;transition:opacity .25s, transform .25s;pointer-events:none;z-index:30;
   }
   .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
 
-  .restart-link{
-    text-align:center;
-    margin-top:26px;
-  }
-  .restart-link a{
-    color:var(--ink-soft);
-    font-size:12.5px;
-    cursor:pointer;
-    text-decoration:underline;
-  }
+  .restart-link{text-align:center;margin-top:20px;}
+  .restart-link a{color:var(--ink-soft);font-size:12px;cursor:pointer;text-decoration:underline;}
 </style>
 </head>
 <body>
@@ -371,404 +202,328 @@
 <header class="hero">
   <div class="eyebrow">REVIEW WRITING SUPPORT</div>
   <h1>口コミ下書きサポート</h1>
-  <p class="lede">ご来店の記憶をたどりながら、口コミの「たたき台」をつくるお手伝いをします。</p>
+  <p class="lede">当てはまるものを選ぶだけで、口コミの「たたき台」ができます。</p>
   <div class="promise">
-    <b>このツールについて：</b>入力いただくのは、実際にご自身が体験された内容だけです。AIが体験談を創作することはありません。できあがった文章は下書きです。投稿前に、ご自身の言葉で自由に書き直してからお使いください。
+    <b>このツールについて：</b>入力いただくのは、実際にご自身が体験された内容だけです。できあがった文章は下書きです。投稿前にご自身の言葉で自由に書き直してからお使いください。
   </div>
 </header>
 
-<div class="container">
+<div class="container" id="formArea">
 
-  <div class="progress" id="progressDots"></div>
-  <div class="step-label" id="stepLabel"></div>
-
-  <!-- STEP 1: store -->
-  <section class="panel step" data-step="1">
-    <h2><span class="num">1</span>ご来店いただいた店舗</h2>
-    <p class="hint">当てはまる店舗を選んでください。</p>
-    <div class="store-grid" id="storeGrid"></div>
-    <div class="nav-row">
-      <span></span>
-      <button class="btn-primary" onclick="goNext(1)">次へ</button>
-    </div>
+  <section class="block">
+    <h2>ご来店いただいた店舗 <span class="required-mark">*</span></h2>
+    <p class="hint">当てはまる店舗を選んでください。以降の項目は選んだ店舗に合わせて自動的に切り替わります。</p>
+    <div class="store-grid" id="storeGrid"><div class="store-card"><div class="name">Hair Garden Escort</div><div class="loc">JR淵野辺駅・相模原市中央区</div></div><div class="store-card"><div class="name">Uru by Escort</div><div class="loc">橋本駅・相模原市緑区</div></div></div>
   </section>
 
-  <!-- STEP 2: staff -->
-  <section class="panel step" data-step="2" style="display:none">
-    <h2><span class="num">2</span>担当スタッフ<span class="optional-tag">任意</span></h2>
-    <p class="hint">お名前を覚えていれば入力してください。わからなければ空欄のままで構いません。</p>
+  <section class="block">
+    <h2>担当スタッフ<span class="optional-tag">任意</span></h2>
+    <p class="hint">お名前を覚えていれば入力してください。わからなければ空欄でOKです。</p>
     <input type="text" id="staffInput" placeholder="例：田中さん、店長さん など">
-    <div class="nav-row">
-      <button class="btn-ghost" onclick="goPrev(2)">戻る</button>
-      <button class="btn-primary" onclick="goNext(2)">次へ</button>
-    </div>
   </section>
 
-  <!-- STEP 3: menu -->
-  <section class="panel step" data-step="3" style="display:none">
-    <h2><span class="num">3</span>受けた施術メニュー</h2>
-    <p class="hint">当てはまるものをすべて選んでください（複数選択可）。</p>
+  <section class="block">
+    <h2>受けた施術メニュー <span class="required-mark">*</span></h2>
+    <p class="hint" id="menuHint">先に店舗を選択すると、メニューが表示されます。</p>
     <div class="chip-grid" id="menuChips"></div>
-    <div class="nav-row">
-      <button class="btn-ghost" onclick="goPrev(3)">戻る</button>
-      <button class="btn-primary" id="btn3" onclick="goNext(3)">次へ</button>
-    </div>
   </section>
 
-  <!-- STEP 4: concerns -->
-  <section class="panel step" data-step="4" style="display:none">
-    <h2><span class="num">4</span>来店前に気になっていたこと<span class="optional-tag">任意</span></h2>
-    <p class="hint">来店前に抱えていたお悩みがあれば選んでください。なければ「特になし」でOKです。</p>
+  <section class="block">
+    <h2>髪のお悩み<span class="optional-tag">任意</span></h2>
+    <p class="hint" id="concernHint">先に店舗を選択すると、お悩み項目が表示されます。</p>
     <div class="chip-grid" id="concernChips"></div>
-    <div class="nav-row">
-      <button class="btn-ghost" onclick="goPrev(4)">戻る</button>
-      <button class="btn-primary" onclick="goNext(4)">次へ</button>
-    </div>
   </section>
 
-  <!-- STEP 5: good points -->
-  <section class="panel step" data-step="5" style="display:none">
-    <h2><span class="num">5</span>良かったと感じた点</h2>
-    <p class="hint">実際に良いと感じたことを選んでください（複数選択可）。</p>
-    <div class="chip-grid" id="goodChips"></div>
-    <div class="nav-row">
-      <button class="btn-ghost" onclick="goPrev(5)">戻る</button>
-      <button class="btn-primary" id="btn5" onclick="goNext(5)">次へ</button>
-    </div>
+  <section class="block">
+    <h2>お店やスタッフの印象 <span class="required-mark">*</span></h2>
+    <p class="hint">実際に良いと感じたことを選んでください。</p>
+    <div class="chip-grid" id="goodChips"><div class="chip">カウンセリングが丁寧だった</div><div class="chip">説明が分かりやすかった</div><div class="chip">話しやすかった</div><div class="chip">安心して任せられた</div><div class="chip">笑顔が素敵だった</div><div class="chip">明るい声かけで元気をもらえた</div><div class="chip">優しい声で安心できた</div><div class="chip">スタッフ同士の雰囲気が良かった</div><div class="chip">お店の雰囲気が良かった</div><div class="chip">居心地が良かった</div><div class="chip">店内が清潔だった</div><div class="chip">また相談したいと思えた</div></div>
   </section>
 
-  <!-- STEP 6: result -->
-  <section class="panel step" data-step="6" style="display:none">
-    <h2><span class="num">6</span>仕上がりの感想</h2>
-    <p class="hint">仕上がりを見て感じたことを選んでください（複数選択可）。</p>
-    <div class="chip-grid" id="resultChips"></div>
-    <div class="nav-row">
-      <button class="btn-ghost" onclick="goPrev(6)">戻る</button>
-      <button class="btn-primary" id="btn6" onclick="goNext(6)">次へ</button>
-    </div>
+  <section class="block">
+    <h2>仕上がりはいかがでしたか？ <span class="required-mark">*</span></h2>
+    <p class="hint">仕上がりを見て感じたことを選んでください。</p>
+    <div class="chip-grid" id="resultChips"><div class="chip">ツヤが出た</div><div class="chip">扱いやすくなった</div><div class="chip">まとまりやすくなった</div><div class="chip">手触りが良くなった</div><div class="chip">自分に似合う仕上がりになった</div><div class="chip">朝のお手入れが楽になった</div><div class="chip">悩みが改善した</div><div class="chip">想像以上だった</div><div class="chip">周りから褒められた</div><div class="chip">色味が気に入っている</div></div>
   </section>
 
-  <!-- STEP 7: access -->
-  <section class="panel step" data-step="7" style="display:none">
-    <h2><span class="num">7</span>立地・アクセスについて<span class="optional-tag">任意</span></h2>
-    <p class="hint">実際にそう感じた場合のみ選んでください。SEOのための挿入ではなく、ご自身が感じたことがなければ「特に触れない」を選んでください。</p>
-    <div class="radio-list" id="accessOptions"></div>
-    <div class="nav-row">
-      <button class="btn-ghost" onclick="goPrev(7)">戻る</button>
-      <button class="btn-primary" onclick="generateDraft()">下書きを作成する</button>
-    </div>
+  <section class="block">
+    <h2>こんな方におすすめしたい<span class="optional-tag">任意</span></h2>
+    <p class="hint" id="recommendHint">先に店舗を選択すると、選択肢が表示されます。</p>
+    <div class="chip-grid" id="recommendChips"></div>
   </section>
 
-  <!-- DRAFT -->
-  <section id="draftSection">
-    <div class="panel" style="padding-bottom:8px;">
-      <h2 style="margin-bottom:16px;"><span class="num">✓</span>下書きができました</h2>
-      <p class="hint" style="margin-bottom:0;">選んでいただいた内容から文章にしました。実際の体験と違う部分は、下の欄で自由に書き直してください。</p>
-    </div>
-
-    <div class="letter">
-      <div class="letter-head" id="letterStoreName"></div>
-      <textarea id="draftText" spellcheck="false"></textarea>
-      <div class="letter-foot">
-        <span id="charCount">0文字</span>
-        <span>ご自身の言葉に書き換えてからご投稿ください</span>
+  <section class="block">
+    <div class="toggle-row" id="accessToggleRow">
+      <div class="txt">
+        立地・アクセスについても一言添える
+        <small>お店の場所について、実際に「良かった」と感じたときだけONにしてください</small>
       </div>
+      <div class="switch" id="accessSwitch"></div>
     </div>
-
-    <div class="draft-actions">
-      <button class="btn-ghost" onclick="regenerate()">別の書き方で作り直す</button>
-      <button class="btn-primary" onclick="copyDraft()">この文章をコピーする</button>
+    <div class="access-facts" id="accessFacts">
+      <p class="lead">当てはまるものを1つ選んでください。</p>
+      <div class="chip-grid" id="accessChips"></div>
     </div>
-
-    <div class="checklist">
-      <h3>投稿前のご確認</h3>
-      <ul>
-        <li>実際に体験していない内容が含まれていないか確認してください</li>
-        <li>スタッフの名前や表現は、失礼のないよう見直してください</li>
-        <li>駅名・地域名は、ご自身が実際に感じた場合のみ残してください</li>
-        <li>文章は自由に書き直して、ご自身の言葉で投稿してください</li>
-      </ul>
-    </div>
-
-    <div class="restart-link"><a onclick="restart()">最初からやり直す</a></div>
   </section>
 
+</div>
+
+<!-- DRAFT (hidden until generated) -->
+<div class="container" id="draftSection">
+  <section class="block" style="padding-bottom:6px;">
+    <h2>下書きができました</h2>
+    <p class="hint" style="margin-bottom:0;">選んでいただいた内容から文章にしました。実際の体験と違う部分は、下の欄で自由に書き直してください。</p>
+  </section>
+
+  <div class="letter">
+    <div class="letter-head" id="letterStoreName"></div>
+    <textarea id="draftText" spellcheck="false"></textarea>
+    <div class="letter-foot">
+      <span id="charCount">0文字</span>
+      <span>ご自身の言葉に書き換えてから投稿してください</span>
+    </div>
+  </div>
+
+  <div class="draft-actions">
+    <button class="btn-ghost2" onclick="regenerate()">別の書き方で作り直す</button>
+    <button class="btn-primary2" onclick="copyDraft()">この文章をコピーする</button>
+  </div>
+
+  <p class="post-caption">下書きをコピーしたあと、お好きな投稿サイトを開いて貼り付けてください。内容は実際の体験に合わせて自由に修正できます。</p>
+  <div class="post-links" id="postLinks"></div>
+
+  <div class="checklist">
+    <h3>投稿前のご確認</h3>
+    <ul>
+      <li>実際に体験していない内容が含まれていないか確認してください</li>
+      <li>スタッフの名前や表現は、失礼のないよう見直してください</li>
+      <li>駅名・地域名は、ご自身が実際に感じた場合のみ残してください</li>
+      <li>文章は自由に書き直して、ご自身の言葉で投稿してください</li>
+    </ul>
+  </div>
+  <div class="final-note">この文章は下書きです。実際の体験に合わせて自由に修正してください。</div>
+
+  <div class="restart-link"><a onclick="restart()">最初からやり直す</a></div>
+</div>
+
+<div class="sticky-bar" id="stickyBar">
+  <div class="inner">
+    <button id="generateBtn" onclick="attemptGenerate()">下書きを作成する</button>
+    <div class="missing" id="missingMsg"></div>
+  </div>
 </div>
 
 <div class="toast" id="toast"></div>
 
 <script>
-/* ---------------- data ---------------- */
+/* ---------------- per-store data ---------------- */
 const STORES = [
   {
-    id: 'hair_garden',
-    name: 'Hair Garden Escort',
-    loc: 'JR淵野辺駅・相模原市中央区',
-    facts: [
-      { short:'JR淵野辺駅からすぐ', full:'JR淵野辺駅から歩いてすぐの場所' },
-      { short:'淵野辺駅から徒歩4分', full:'淵野辺駅から徒歩4分ほどの場所' },
-      { short:'相模原市中央区にある', full:'相模原市中央区にあるお店' },
-      { short:'JR横浜線沿いで通いやすい', full:'JR横浜線沿いにあって電車で通いやすい場所' }
-    ]
+    id:'hair_garden',
+    name:'Hair Garden Escort',
+    loc:'JR淵野辺駅・相模原市中央区',
+    facts:[
+      {short:'淵野辺駅からすぐ', full:'JR淵野辺駅から歩いてすぐの場所'},
+      {short:'淵野辺駅から徒歩4分', full:'淵野辺駅から徒歩4分ほどの場所'},
+      {short:'JR横浜線沿い', full:'JR横浜線沿いにあって電車で通いやすい場所'},
+      {short:'相模原市中央区', full:'相模原市中央区にあるお店'},
+      {short:'鹿沼台エリア', full:'鹿沼台エリアにあるお店'}
+    ],
+    concerns:['パサつき','広がり','うねり','白髪','まとまりにくさ','似合う髪型が分からない','エイジングによる髪の変化','上品なストレートに憧れていた','髪が細くなってきた','朝のセットが大変'],
+    menus:['カット＋カラー＋トリートメント','カット＋カラー＋パーマ＋トリートメント','カット＋上品ストレート＋トリートメント','カット＋カラー＋上品ストレート＋トリートメント','カット＋トリートメント','カット＋パーマ＋トリートメント'],
+    recommend:['白髪が気になる方','上品なストレートにしたい方','カラーを楽しみたい方','パーマでイメージを変えたい方','年齢による髪の変化が気になる方','なりたい髪型が定まっていない方'],
+    googleReview:'https://search.google.com/local/writereview?placeid=ChIJp19Vv6b9GGARkeJn53AQPA4',
+    hotpepper:'https://beauty.hotpepper.jp/slnH000226146/',
+    homepage:'https://hair-escort.jp/'
   },
   {
-    id: 'uru',
-    name: 'Uru by Escort',
-    loc: '橋本駅・相模原市緑区',
-    facts: [
-      { short:'橋本駅から近い', full:'橋本駅から近い場所' },
-      { short:'相模原市緑区にある', full:'相模原市緑区にあるお店' },
-      { short:'橋本エリアで通いやすい', full:'橋本エリアにあって通いやすい場所' }
-    ]
+    id:'uru',
+    name:'Uru by Escort',
+    loc:'橋本駅・相模原市緑区',
+    facts:[
+      {short:'橋本駅から近い', full:'橋本駅から近い場所'},
+      {short:'橋本エリア', full:'橋本エリアにあって通いやすい場所'},
+      {short:'相模原市緑区', full:'相模原市緑区にあるお店'},
+      {short:'東橋本エリア', full:'東橋本エリアにあるお店'}
+    ],
+    concerns:['パサつき','広がり','うねり','ダメージ','まとまりにくさ','艶が欲しかった','くせが気になっていた','縮毛矯正をしたかった','髪が細くなってきた','ボリュームが出にくい'],
+    menus:[
+      '最上級カラーケアコース（カット＋イルミナカラー＋TOKIOトリートメント）',
+      'カラーケアコース（カット＋カラー）',
+      'カラーケア＋ストレート',
+      'カラーケア＋ケアパーマ',
+      'プレミアム縮毛矯正コース',
+      '酸熱トリートメント＋TOKIOトリートメント',
+      'カット＋イルミナカラー＋TOKIOトリートメント＋ナノスチーム',
+      'カット＋艶カラー＋TOKIOトリートメント＋ナノスチーム',
+      'カット＋カラー＋TOKIOトリートメント＋ホームケア',
+      'カット＋ダメージレス艶カラー＋TOKIOトリートメント（平日限定）'
+    ],
+    recommend:['髪質改善をしたい方','縮毛矯正を探している方','髪のダメージが気になる方','艶感のある髪になりたい方','くせ毛・うねりに悩んでいる方','本格的なカラーケアをしたい方'],
+    googleReview:'https://search.google.com/local/writereview?placeid=ChIJu91DfkcdGWARjIJxOfYZUjo',
+    hotpepper:'', // 未設定：情報をいただき次第反映します
+    homepage:''   // 未設定：情報をいただき次第反映します
   }
 ];
 
-const MENU_OPTIONS = ['カット','カラー','パーマ','縮毛矯正','トリートメント','ヘッドスパ','セット・アレンジ'];
-
-const CONCERN_OPTIONS = [
-  '髪のうねり・広がり','白髪が気になっていた','毛量の多さ','パサつき・乾燥',
-  'なりたい髪型が決まっていなかった','久しぶりの美容室で少し緊張していた','特になし'
-];
-
-const GOOD_OPTIONS = [
-  'カウンセリングが丁寧だった','説明がわかりやすかった','希望をしっかり聞いてくれた',
-  '施術が丁寧で安心できた','提案が的確だった','店内の雰囲気が良かった',
-  '会話が心地よかった','予約や受付の対応がスムーズだった'
-];
-
-const RESULT_OPTIONS = [
-  '思っていた通りの仕上がりになった','扱いやすくなった','ツヤが出た',
-  '髪が軽くなった','家でもスタイリングしやすくなった','周りから褒められた',
-  '色味が気に入っている'
-];
+const GOOD_OPTIONS = ['カウンセリングが丁寧だった','説明が分かりやすかった','話しやすかった','安心して任せられた','笑顔が素敵だった','明るい声かけで元気をもらえた','優しい声で安心できた','スタッフ同士の雰囲気が良かった','お店の雰囲気が良かった','居心地が良かった','店内が清潔だった','また相談したいと思えた'];
+const RESULT_OPTIONS = ['ツヤが出た','扱いやすくなった','まとまりやすくなった','手触りが良くなった','自分に似合う仕上がりになった','朝のお手入れが楽になった','悩みが改善した','想像以上だった','周りから褒められた','色味が気に入っている'];
 
 /* ---------------- state ---------------- */
-let state = {
-  store: null,
-  staff: '',
-  menus: new Set(),
-  concerns: new Set(),
-  goods: new Set(),
-  results: new Set(),
-  access: null // {short, full} or null / 'none'
-};
+let state = { store:null, staff:'', menus:new Set(), concerns:new Set(), goods:new Set(), results:new Set(), recommend:new Set(), accessOn:false, access:null };
 
-const TOTAL_STEPS = 7;
-
-/* ---------------- render setup ---------------- */
+/* ---------------- render ---------------- */
 function renderStoreGrid(){
   const grid = document.getElementById('storeGrid');
-  grid.innerHTML = '';
+  grid.innerHTML='';
   STORES.forEach(s=>{
     const el = document.createElement('div');
-    el.className = 'store-card';
+    el.className='store-card';
     el.innerHTML = `<div class="name">${s.name}</div><div class="loc">${s.loc}</div>`;
-    el.onclick = ()=>{
-      state.store = s;
-      document.querySelectorAll('.store-card').forEach(c=>c.classList.remove('selected'));
-      el.classList.add('selected');
-      renderAccessOptions();
-    };
+    el.onclick = ()=> selectStore(s, el);
     grid.appendChild(el);
   });
 }
 
-function renderChips(containerId, options, targetSet, allowNone){
+function selectStore(s, el){
+  state.store = s;
+  state.menus = new Set();
+  state.concerns = new Set();
+  state.recommend = new Set();
+  state.accessOn = false;
+  state.access = null;
+  document.querySelectorAll('.store-card').forEach(c=>c.classList.remove('selected'));
+  el.classList.add('selected');
+  document.getElementById('accessSwitch').classList.remove('on');
+  document.getElementById('accessFacts').classList.remove('show');
+  document.getElementById('concernHint').textContent = 'お悩みがあれば選んでください。なければ選ばなくて大丈夫です。';
+  document.getElementById('menuHint').textContent = '当てはまるものをすべて選んでください。';
+  document.getElementById('recommendHint').textContent = '当てはまるものを選んでください（複数選択可）。';
+  renderChips('menuChips', s.menus, state.menus);
+  renderChips('concernChips', s.concerns, state.concerns);
+  renderChips('recommendChips', s.recommend, state.recommend);
+  renderAccessChips();
+  clearMissing();
+}
+
+function renderChips(containerId, options, targetSet){
   const grid = document.getElementById(containerId);
-  grid.innerHTML = '';
+  grid.innerHTML='';
   options.forEach(opt=>{
     const chip = document.createElement('div');
-    chip.className = 'chip' + (opt==='特になし' ? ' none-option':'');
+    chip.className='chip';
     chip.textContent = opt;
     chip.onclick = ()=>{
-      if(opt==='特になし'){
-        targetSet.clear();
-        targetSet.add(opt);
-        Array.from(grid.children).forEach(c=>c.classList.remove('selected'));
-        chip.classList.add('selected');
-        return;
-      }
-      if(targetSet.has('特になし')){
-        targetSet.delete('特になし');
-        Array.from(grid.children).forEach(c=>{ if(c.textContent==='特になし') c.classList.remove('selected'); });
-      }
-      if(targetSet.has(opt)){
-        targetSet.delete(opt);
-        chip.classList.remove('selected');
-      } else {
-        targetSet.add(opt);
-        chip.classList.add('selected');
-      }
+      if(targetSet.has(opt)){ targetSet.delete(opt); chip.classList.remove('selected'); }
+      else{ targetSet.add(opt); chip.classList.add('selected'); }
+      clearMissing();
     };
     grid.appendChild(chip);
   });
 }
 
-function renderAccessOptions(){
-  const wrap = document.getElementById('accessOptions');
-  wrap.innerHTML = '';
-  if(!state.store){
-    wrap.innerHTML = '<div class="hint">先に店舗を選択してください。</div>';
-    return;
-  }
-  const noneItem = document.createElement('div');
-  noneItem.className = 'radio-item';
-  noneItem.innerHTML = '特に触れない<span class="sub">アクセスについて特に感じたことがなければこちらを選んでください</span>';
-  noneItem.onclick = ()=> selectAccess(noneItem, null);
-  wrap.appendChild(noneItem);
-
+function renderAccessChips(){
+  const grid = document.getElementById('accessChips');
+  grid.innerHTML='';
+  state.access = null;
+  if(!state.store) return;
   state.store.facts.forEach(f=>{
-    const item = document.createElement('div');
-    item.className = 'radio-item';
-    item.innerHTML = `実際にそう感じた<span class="sub">${f.full}</span>`;
-    item.onclick = ()=> selectAccess(item, f);
-    wrap.appendChild(item);
+    const chip = document.createElement('div');
+    chip.className='chip';
+    chip.textContent = f.short;
+    chip.onclick = ()=>{
+      document.querySelectorAll('#accessChips .chip').forEach(c=>c.classList.remove('selected'));
+      chip.classList.add('selected');
+      state.access = f;
+    };
+    grid.appendChild(chip);
   });
-
-  // default select "none"
-  selectAccess(noneItem, null);
-}
-function selectAccess(el, val){
-  document.querySelectorAll('#accessOptions .radio-item').forEach(i=>i.classList.remove('selected'));
-  el.classList.add('selected');
-  state.access = val;
 }
 
-/* ---------------- navigation ---------------- */
-function updateProgress(current){
-  const dots = document.getElementById('progressDots');
-  dots.innerHTML = '';
-  for(let i=1;i<=TOTAL_STEPS;i++){
-    const d = document.createElement('div');
-    d.className = 'dot' + (i<current?' done':'') + (i===current?' active':'');
-    dots.appendChild(d);
-  }
-  const labels = {
-    1:'店舗を選ぶ',2:'担当スタッフ',3:'施術メニュー',4:'来店前の悩み',
-    5:'良かった点',6:'仕上がりの感想',7:'アクセス'
-  };
-  document.getElementById('stepLabel').textContent = `STEP ${current} / ${TOTAL_STEPS}　${labels[current]}`;
-}
+document.getElementById('accessToggleRow').addEventListener('click', ()=>{
+  state.accessOn = !state.accessOn;
+  document.getElementById('accessSwitch').classList.toggle('on', state.accessOn);
+  document.getElementById('accessFacts').classList.toggle('show', state.accessOn);
+  if(!state.accessOn){ state.access = null; document.querySelectorAll('#accessChips .chip').forEach(c=>c.classList.remove('selected')); }
+});
 
-function showStep(n){
-  document.querySelectorAll('.step').forEach(s=>{
-    s.style.display = (Number(s.dataset.step)===n) ? 'block' : 'none';
-  });
-  updateProgress(n);
-  window.scrollTo({top: document.querySelector(`.step[data-step="${n}"]`).offsetTop - 20, behavior:'smooth'});
-}
+/* ---------------- validation ---------------- */
+function clearMissing(){ document.getElementById('missingMsg').textContent=''; }
 
-function goNext(current){
-  if(current===1 && !state.store){
-    flashToast('店舗を選んでください');
+function attemptGenerate(){
+  state.staff = document.getElementById('staffInput').value.trim();
+  const missing = [];
+  if(!state.store) missing.push('店舗');
+  if(state.menus.size===0) missing.push('施術メニュー');
+  if(state.goods.size===0) missing.push('良かった点');
+  if(state.results.size===0) missing.push('仕上がりの感想');
+
+  if(missing.length){
+    document.getElementById('missingMsg').textContent = missing.join('・') + ' を選んでください';
+    const firstTarget = missing[0]==='店舗' ? 'storeGrid' : missing[0]==='施術メニュー' ? 'menuChips' : missing[0]==='良かった点' ? 'goodChips' : 'resultChips';
+    document.getElementById(firstTarget).closest('section').scrollIntoView({behavior:'smooth', block:'center'});
     return;
   }
-  if(current===3 && state.menus.size===0){
-    flashToast('メニューを1つ以上選んでください');
-    return;
-  }
-  if(current===5 && state.goods.size===0){
-    flashToast('良かった点を1つ以上選んでください');
-    return;
-  }
-  if(current===6 && state.results.size===0){
-    flashToast('仕上がりの感想を1つ以上選んでください');
-    return;
-  }
-  if(current===2){ state.staff = document.getElementById('staffInput').value.trim(); }
-  showStep(current+1);
-}
-function goPrev(current){
-  if(current===2){ state.staff = document.getElementById('staffInput').value.trim(); }
-  showStep(current-1);
+  generateDraft();
 }
 
-/* ---------------- draft generation ---------------- */
+/* ---------------- draft generation (phrase-level random assembly) ---------------- */
 function pick(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
 
 const OPENERS = [
-  (m,s)=> `先日、${m}でお世話になりました。`,
-  (m,s)=> `${m}をお願いしてきました。`,
-  (m,s)=> `久しぶりに${m}をお願いしに伺いました。`,
-  (m,s)=> `${m}でお世話になったので、感想を書かせていただきます。`
+  m=>`先日、${m}でお世話になりました。`,
+  m=>`${m}をお願いしてきました。`,
+  m=>`久しぶりに${m}をお願いしに伺いました。`,
+  m=>`${m}でお世話になったので、感想を書かせていただきます。`,
+  m=>`${m}を担当していただきました。`
 ];
-
 const STAFF_LINES = [
   n=>`担当してくださったのは${n}さんでした。`,
   n=>`${n}さんに担当していただきました。`,
-  n=>`今回は${n}さんにお願いしました。`
+  n=>`今回は${n}さんにお願いしました。`,
+  n=>`${n}さんが丁寧に対応してくださいました。`
 ];
-
 const CONCERN_LINES = [
   c=>`もともと${c}が気になっていて、`,
   c=>`来店前は${c}が悩みだったのですが、`,
-  c=>`${c}について相談したところ、`
+  c=>`${c}について相談したところ、`,
+  c=>`${c}という点を伝えたところ、`
 ];
-
-const GOOD_JOINERS = ['、', '。また、', '。それから、'];
-
-const RESULT_LEADS = [
-  '仕上がりには大満足です。',
-  '仕上がりを見て、とても嬉しくなりました。',
-  '仕上がりにはとても満足しています。',
-  '想像していた以上の仕上がりでした。'
+const GOOD_LEADS = [
+  g=>`${g}ところが特に良かったです。`,
+  g=>`${g}ところがとても印象に残っています。`,
+  g=>`${g}ところに満足しています。`
 ];
-
-const CLOSERS = [
-  '次回もぜひお願いしたいと思います。',
-  'また利用させていただきたいです。',
-  'また同じ担当の方にお願いしたいです。',
-  'これからも通いたいと思えるお店でした。'
-];
+const RESULT_LEADS = ['仕上がりには大満足です。','仕上がりを見て、とても嬉しくなりました。','仕上がりにはとても満足しています。','想像していた以上の仕上がりでした。'];
+const CLOSERS = ['次回もぜひお願いしたいと思います。','また利用させていただきたいです。','また同じ担当の方にお願いしたいです。','これからも通いたいと思えるお店でした。','リピートしたいと思います。'];
 
 function buildSentenceList(items){
-  // returns natural joined phrase, e.g. "AとB" / "A、B、C"
-  const arr = Array.from(items).filter(x=>x!=='特になし');
+  const arr = Array.from(items);
   if(arr.length===0) return '';
   if(arr.length===1) return arr[0];
   if(arr.length===2) return arr[0] + 'や' + arr[1];
   return arr.slice(0,-1).join('、') + '、' + arr[arr.length-1];
 }
 
-function generateDraft(){
-  if(!state.store){ flashToast('店舗を選んでください'); return; }
-  const draft = composeDraft();
-  document.getElementById('letterStoreName').textContent = state.store.name + ' さんへの口コミ（下書き）';
-  document.getElementById('draftText').value = draft;
-  updateCharCount();
-  document.querySelectorAll('.step').forEach(s=> s.style.display='none');
-  document.getElementById('progressDots').parentElement.style.display='none';
-  const stepLabelEl = document.getElementById('stepLabel');
-  if(stepLabelEl) stepLabelEl.style.display='none';
-  document.getElementById('draftSection').style.display='block';
-  window.scrollTo({top:0, behavior:'smooth'});
-}
-
 function composeDraft(){
-  const menuText = buildSentenceList(state.menus);
-  let text = pick(OPENERS)(menuText || 'メニュー');
+  const menuText = buildSentenceList(state.menus) || 'メニュー';
+  let text = pick(OPENERS)(menuText);
 
-  if(state.staff){
-    text += pick(STAFF_LINES)(state.staff);
-  }
+  if(state.staff){ text += pick(STAFF_LINES)(state.staff); }
 
   const concernList = buildSentenceList(state.concerns);
-  const goodList = Array.from(state.goods);
-
   if(concernList){
     text += pick(CONCERN_LINES)(concernList);
-    text += buildSentenceList(state.goods) + 'ところが特に良かったです。';
-  } else if(goodList.length){
-    text += buildSentenceList(state.goods) + 'ところがとても良かったです。';
+    text += pick(GOOD_LEADS)(buildSentenceList(state.goods));
+  } else {
+    text += pick(GOOD_LEADS)(buildSentenceList(state.goods));
   }
 
   text += pick(RESULT_LEADS);
   const resultList = buildSentenceList(state.results);
-  if(resultList){
-    text += resultList + 'と感じています。';
-  }
+  if(resultList){ text += resultList + 'と感じています。'; }
 
-  if(state.access){
+  if(state.accessOn && state.access){
     const accessPhrases = [
       `${state.access.full}なので、通うのにも助かっています。`,
       `${state.access.full}で、アクセスの面でも満足しています。`,
@@ -777,24 +532,76 @@ function composeDraft(){
     text += pick(accessPhrases);
   }
 
+  const recommendList = buildSentenceList(state.recommend);
+  if(recommendList){
+    const recommendPhrases = [
+      `${recommendList}には特におすすめしたいです。`,
+      `${recommendList}にはぴったりのお店だと思います。`,
+      `${recommendList}は一度相談してみるといいかもしれません。`
+    ];
+    text += pick(recommendPhrases);
+  }
+
   text += pick(CLOSERS);
   return text;
 }
 
-function regenerate(){
+function generateDraft(){
   const draft = composeDraft();
+  document.getElementById('letterStoreName').textContent = state.store.name + ' さんへの口コミ（下書き）';
   document.getElementById('draftText').value = draft;
+  updateCharCount();
+  renderPostLinks();
+  document.getElementById('formArea').style.display='none';
+  document.getElementById('stickyBar').style.display='none';
+  document.getElementById('draftSection').style.display='block';
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+function renderPostLinks(){
+  const wrap = document.getElementById('postLinks');
+  wrap.innerHTML = '';
+  const s = state.store;
+
+  const google = document.createElement('a');
+  google.href = s.googleReview;
+  google.target = '_blank';
+  google.rel = 'noopener';
+  google.className = 'google';
+  google.textContent = 'Googleへ投稿する';
+  wrap.appendChild(google);
+
+  if(s.hotpepper){
+    const hp = document.createElement('a');
+    hp.href = s.hotpepper;
+    hp.target = '_blank';
+    hp.rel = 'noopener';
+    hp.className = 'hotpepper';
+    hp.textContent = 'Hot Pepperへ投稿する';
+    wrap.appendChild(hp);
+  }
+
+  if(s.homepage){
+    const home = document.createElement('a');
+    home.href = s.homepage;
+    home.target = '_blank';
+    home.rel = 'noopener';
+    home.className = 'homepage';
+    home.textContent = 'ホームページを見る';
+    wrap.appendChild(home);
+  }
+}
+
+function regenerate(){
+  document.getElementById('draftText').value = composeDraft();
   updateCharCount();
   flashToast('別の書き方で作り直しました');
 }
 
 function updateCharCount(){
-  const len = document.getElementById('draftText').value.length;
-  document.getElementById('charCount').textContent = len + '文字';
+  document.getElementById('charCount').textContent = document.getElementById('draftText').value.length + '文字';
 }
-document.addEventListener('input', (e)=>{
-  if(e.target && e.target.id==='draftText') updateCharCount();
-});
+document.addEventListener('input', e=>{ if(e.target && e.target.id==='draftText') updateCharCount(); });
 
 function copyDraft(){
   const ta = document.getElementById('draftText');
@@ -816,27 +623,32 @@ function flashToast(msg){
 }
 
 function restart(){
-  state = { store:null, staff:'', menus:new Set(), concerns:new Set(), goods:new Set(), results:new Set(), access:null };
-  document.getElementById('staffInput').value = '';
+  state = { store:null, staff:'', menus:new Set(), concerns:new Set(), goods:new Set(), results:new Set(), recommend:new Set(), accessOn:false, access:null };
+  document.getElementById('staffInput').value='';
   document.querySelectorAll('.store-card').forEach(c=>c.classList.remove('selected'));
-  renderChips('menuChips', MENU_OPTIONS, state.menus, false);
-  renderChips('concernChips', CONCERN_OPTIONS, state.concerns, true);
-  renderChips('goodChips', GOOD_OPTIONS, state.goods, false);
-  renderChips('resultChips', RESULT_OPTIONS, state.results, false);
-  document.getElementById('accessOptions').innerHTML = '<div class="hint">先に店舗を選択してください。</div>';
-  document.getElementById('draftSection').style.display = 'none';
-  document.getElementById('progressDots').parentElement.style.display='';
-  document.getElementById('stepLabel').style.display='';
-  showStep(1);
+  document.getElementById('menuChips').innerHTML = '';
+  document.getElementById('menuHint').textContent = '先に店舗を選択すると、メニューが表示されます。';
+  document.getElementById('concernChips').innerHTML = '';
+  document.getElementById('concernHint').textContent = '先に店舗を選択すると、お悩み項目が表示されます。';
+  document.getElementById('recommendChips').innerHTML = '';
+  document.getElementById('recommendHint').textContent = '先に店舗を選択すると、選択肢が表示されます。';
+  renderChips('goodChips', GOOD_OPTIONS, state.goods);
+  renderChips('resultChips', RESULT_OPTIONS, state.results);
+  document.getElementById('accessSwitch').classList.remove('on');
+  document.getElementById('accessFacts').classList.remove('show');
+  document.getElementById('accessChips').innerHTML='';
+  document.getElementById('draftSection').style.display='none';
+  document.getElementById('formArea').style.display='';
+  document.getElementById('stickyBar').style.display='';
+  clearMissing();
+  window.scrollTo({top:0, behavior:'smooth'});
 }
 
 /* ---------------- init ---------------- */
 renderStoreGrid();
-renderChips('menuChips', MENU_OPTIONS, state.menus, false);
-renderChips('concernChips', CONCERN_OPTIONS, state.concerns, true);
-renderChips('goodChips', GOOD_OPTIONS, state.goods, false);
-renderChips('resultChips', RESULT_OPTIONS, state.results, false);
-showStep(1);
+renderChips('goodChips', GOOD_OPTIONS, state.goods);
+renderChips('resultChips', RESULT_OPTIONS, state.results);
 </script>
-</body>
-</html>
+
+
+</body></html>
