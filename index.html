@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<!-- saved from url=(0059)file:///C:/Users/Owner/Downloads/review-draft-helper_9.html -->
+<!-- saved from url=(0060)file:///C:/Users/Owner/Downloads/review-draft-helper_10.html -->
 <html lang="ja"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>口コミ下書きサポート</title>
 <link rel="preconnect" href="https://fonts.googleapis.com/">
-<link href="./口コミ下書きサポート3_files/css2" rel="stylesheet">
+<link href="./口コミ下書きサポート4_files/css2" rel="stylesheet">
 <style>
   :root{
     --ink:#2A211D;
@@ -261,7 +261,7 @@
       <div class="switch" id="accessSwitch"></div>
     </div>
     <div class="access-facts" id="accessFacts">
-      <p class="lead">当てはまるものを1つ選んでください。</p>
+      <p class="lead">当てはまるものを2つまで選んでください。</p>
       <div class="chip-grid" id="accessChips"></div>
     </div>
   </section>
@@ -374,7 +374,7 @@ const GOOD_OPTIONS = ['カウンセリングが丁寧だった','説明が分か
 const RESULT_OPTIONS = ['ツヤが出た','扱いやすくなった','まとまりやすくなった','手触りが良くなった','自分に似合う仕上がりになった','朝のお手入れが楽になった','悩みが改善した','想像以上だった','周りから褒められた','色味が気に入っている'];
 
 /* ---------------- state ---------------- */
-let state = { store:null, staff:'', menus:new Set(), concerns:new Set(), goods:new Set(), results:new Set(), recommend:new Set(), accessOn:false, access:null };
+let state = { store:null, staff:'', menus:new Set(), concerns:new Set(), goods:new Set(), results:new Set(), recommend:new Set(), accessOn:false, access:[] };
 
 /* ---------------- render ---------------- */
 function renderStoreGrid(){
@@ -396,7 +396,7 @@ function selectStore(s, el){
   state.concerns = new Set();
   state.recommend = new Set();
   state.accessOn = false;
-  state.access = null;
+  state.access = [];
   document.querySelectorAll('.store-card').forEach(c=>c.classList.remove('selected'));
   el.classList.add('selected');
   document.getElementById('accessSwitch').classList.remove('on');
@@ -454,16 +454,25 @@ function renderChips(containerId, options, targetSet){
 function renderAccessChips(){
   const grid = document.getElementById('accessChips');
   grid.innerHTML='';
-  state.access = null;
+  state.access = [];
   if(!state.store) return;
   state.store.facts.forEach(f=>{
     const chip = document.createElement('div');
     chip.className='chip';
     chip.textContent = f.short;
     chip.onclick = ()=>{
-      document.querySelectorAll('#accessChips .chip').forEach(c=>c.classList.remove('selected'));
-      chip.classList.add('selected');
-      state.access = f;
+      const idx = state.access.indexOf(f);
+      if(idx !== -1){
+        state.access.splice(idx, 1);
+        chip.classList.remove('selected');
+      } else {
+        if(state.access.length >= 2){
+          flashToast('立地・アクセスは2つまで選べます');
+          return;
+        }
+        state.access.push(f);
+        chip.classList.add('selected');
+      }
     };
     grid.appendChild(chip);
   });
@@ -473,7 +482,7 @@ document.getElementById('accessToggleRow').addEventListener('click', ()=>{
   state.accessOn = !state.accessOn;
   document.getElementById('accessSwitch').classList.toggle('on', state.accessOn);
   document.getElementById('accessFacts').classList.toggle('show', state.accessOn);
-  if(!state.accessOn){ state.access = null; document.querySelectorAll('#accessChips .chip').forEach(c=>c.classList.remove('selected')); }
+  if(!state.accessOn){ state.access = []; document.querySelectorAll('#accessChips .chip').forEach(c=>c.classList.remove('selected')); }
 });
 
 /* ---------------- validation ---------------- */
@@ -551,11 +560,14 @@ function composeDraft(){
   const resultList = buildSentenceList(state.results);
   if(resultList){ text += resultList + 'と感じています。'; }
 
-  if(state.accessOn && state.access){
+  if(state.accessOn && state.access.length){
+    const accessText = state.access.length === 2
+      ? `${state.access[0].full}で、${state.access[1].full}`
+      : state.access[0].full;
     const accessPhrases = [
-      `${state.access.full}なので、通うのにも助かっています。`,
-      `${state.access.full}で、アクセスの面でも満足しています。`,
-      `お店は${state.access.full}にあります。`
+      `${accessText}なので、通うのにも助かっています。`,
+      `${accessText}で、アクセスの面でも満足しています。`,
+      `お店は${accessText}にあります。`
     ];
     text += pick(accessPhrases);
   }
@@ -651,7 +663,7 @@ function flashToast(msg){
 }
 
 function restart(){
-  state = { store:null, staff:'', menus:new Set(), concerns:new Set(), goods:new Set(), results:new Set(), recommend:new Set(), accessOn:false, access:null };
+  state = { store:null, staff:'', menus:new Set(), concerns:new Set(), goods:new Set(), results:new Set(), recommend:new Set(), accessOn:false, access:[] };
   document.getElementById('staffChips').innerHTML='';
   document.getElementById('staffHint').textContent = '先に店舗を選択すると、スタッフが表示されます。分からない場合は選ばなくて大丈夫です。';
   document.querySelectorAll('.store-card').forEach(c=>c.classList.remove('selected'));
