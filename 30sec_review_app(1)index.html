@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>30秒かんたん口コミ</title>
+  <style>
+    :root{
+      --bg:#f7f2ee;
+      --card:#ffffff;
+      --main:#7f6658;
+      --accent:#c9a995;
+      --text:#332c28;
+      --muted:#7f746e;
+      --line:#e7ddd7;
+      --ok:#5f7f6a;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:-apple-system,BlinkMacSystemFont,"Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif;
+      background:linear-gradient(180deg,#faf7f4 0%,var(--bg) 100%);
+      color:var(--text);
+    }
+    .wrap{max-width:720px;margin:auto;padding:18px 14px 48px}
+    .hero{
+      text-align:center;
+      padding:24px 12px 16px;
+    }
+    .badge{
+      display:inline-block;
+      background:#efe4dd;
+      color:var(--main);
+      border-radius:999px;
+      padding:7px 13px;
+      font-size:13px;
+      font-weight:700;
+    }
+    h1{font-size:30px;line-height:1.35;margin:14px 0 8px}
+    .lead{color:var(--muted);font-size:15px;line-height:1.8;margin:0}
+    .card{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:20px;
+      padding:20px;
+      margin:14px 0;
+      box-shadow:0 8px 24px rgba(70,45,30,.06);
+    }
+    .step{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      margin-bottom:14px;
+    }
+    .num{
+      width:30px;height:30px;border-radius:50%;
+      background:var(--main);color:white;
+      display:grid;place-items:center;
+      font-weight:700;font-size:14px;
+      flex:0 0 auto;
+    }
+    h2{font-size:18px;margin:0}
+    .options{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+    .option input{display:none}
+    .option label{
+      display:block;
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding:13px 12px;
+      text-align:center;
+      background:#fff;
+      cursor:pointer;
+      transition:.2s;
+      font-size:14px;
+    }
+    .option input:checked + label{
+      background:#f1e5de;
+      border-color:var(--accent);
+      color:var(--main);
+      font-weight:700;
+      transform:translateY(-1px);
+    }
+    .note{
+      margin-top:10px;
+      font-size:12px;
+      color:var(--muted);
+      text-align:center;
+    }
+    textarea{
+      width:100%;
+      min-height:170px;
+      resize:vertical;
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding:14px;
+      font-size:15px;
+      line-height:1.7;
+      color:var(--text);
+      background:#fffdfc;
+    }
+    .btn{
+      width:100%;
+      border:0;
+      border-radius:14px;
+      padding:15px 16px;
+      font-size:16px;
+      font-weight:700;
+      cursor:pointer;
+      margin-top:10px;
+    }
+    .primary{background:var(--main);color:#fff}
+    .secondary{background:#efe6e1;color:var(--main)}
+    .google{background:#fff;border:1px solid var(--line);color:#333}
+    .hotpepper{background:#d94b65;color:white}
+    .status{
+      min-height:24px;
+      text-align:center;
+      color:var(--ok);
+      font-weight:700;
+      font-size:14px;
+      margin-top:8px;
+    }
+    .choice-title{text-align:center;font-weight:700;margin:4px 0 12px}
+    .small{font-size:12px;color:var(--muted);line-height:1.6;text-align:center}
+    .footer{text-align:center;color:var(--muted);font-size:12px;padding-top:12px}
+    @media (max-width:480px){
+      h1{font-size:25px}
+      .options{grid-template-columns:1fr 1fr}
+      .card{padding:16px}
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <section class="hero">
+      <span class="badge">選ぶだけで約30秒</span>
+      <h1>かんたん口コミサポート</h1>
+      <p class="lead">
+        今日のご感想を、当てはまる項目から選んでください。<br>
+        自然な口コミ文を自動で作成します。
+      </p>
+    </section>
+
+    <section class="card">
+      <div class="step"><span class="num">1</span><h2>お店について</h2></div>
+      <label style="display:block;font-size:14px;font-weight:700;margin-bottom:6px;">店名</label>
+      <input id="shopName" type="text" placeholder="例：○○美容室" style="width:100%;border:1px solid var(--line);border-radius:14px;padding:13px;font-size:15px;margin-bottom:12px;">
+      <label style="display:block;font-size:14px;font-weight:700;margin-bottom:6px;">お店の場所・最寄り駅</label>
+      <input id="shopArea" type="text" placeholder="例：町田駅から徒歩5分" style="width:100%;border:1px solid var(--line);border-radius:14px;padding:13px;font-size:15px;">
+      <p class="note">店名や場所を入れると、新規のお客様にも伝わりやすい口コミになります。</p>
+    </section>
+
+    <section class="card">
+      <div class="step"><span class="num">2</span><h2>今日のメニュー</h2></div>
+      <div class="options" id="menuOptions"></div>
+    </section>
+
+    <section class="card">
+      <div class="step"><span class="num">3</span><h2>髪のお悩み</h2></div>
+      <div class="options" id="worryOptions"></div>
+    </section>
+
+    <section class="card">
+      <div class="step"><span class="num">4</span><h2>仕上がりはいかがでしたか？</h2></div>
+      <div class="options" id="resultOptions"></div>
+    </section>
+
+    <section class="card">
+      <div class="step"><span class="num">5</span><h2>お店やスタッフの印象</h2></div>
+      <div class="options" id="staffOptions"></div>
+    </section>
+
+    <section class="card">
+      <div class="step"><span class="num">6</span><h2>最後のひとこと</h2></div>
+      <div class="options" id="endingOptions"></div>
+      <button class="btn primary" onclick="generateReview()">口コミ文を作る</button>
+      <p class="note">選んだ内容をもとに、自然な文章を作成します。</p>
+    </section>
+
+    <section class="card">
+      <div class="step"><span class="num">7</span><h2>完成した口コミ</h2></div>
+      <textarea id="reviewText" placeholder="ここに口コミ文が表示されます。自由に書き直せます。"></textarea>
+      <button class="btn secondary" onclick="copyReview()">口コミ文をコピー</button>
+      <div class="status" id="status"></div>
+    </section>
+
+    <section class="card">
+      <p class="choice-title">投稿先をお選びください</p>
+      <button class="btn google" onclick="openReview('google')">Google口コミを開く</button>
+      <button class="btn hotpepper" onclick="openReview('hotpepper')">ホットペッパーの口コミを開く</button>
+      <p class="small">
+        どちらか一つだけで大丈夫です。<br>
+        コピーした文章を貼り付けて、必要に応じてご自身の言葉に直してご投稿ください。
+      </p>
+    </section>
+
+    <p class="footer">ご協力ありがとうございます。皆さまの声がスタッフの励みになります。</p>
+  </main>
+
+<script>
+  // ▼ここをお店の口コミページURLに変更してください
+  const REVIEW_URLS = {
+    google: "https://www.google.com/",
+    hotpepper: "https://beauty.hotpepper.jp/"
+  };
+
+  const data = {
+    menu: ["カット","カラー","白髪ぼかし","髪質改善","縮毛矯正","トリートメント","ヘッドスパ","その他"],
+    worry: ["パサつき","広がり","うねり","白髪","ダメージ","まとまりにくさ","髪が細くなってきた","ボリュームが出にくい","似合う髪型が分からない","朝のセットが大変"],
+    result: ["ツヤが出た","扱いやすくなった","まとまりやすくなった","手触りが良くなった","自分に似合う仕上がりになった","朝のお手入れが楽になった","悩みが改善した","想像以上だった"],
+    staff: ["カウンセリングが丁寧","説明が分かりやすい","話しやすい","安心して任せられた","笑顔が素敵だった","明るい声かけで元気になれた","優しい声で安心できた","スタッフ同士の雰囲気が良かった","お店の雰囲気が良い","居心地が良い","店内が清潔だった","また相談したい"],
+    ending: ["またお願いします","大満足です","ありがとうございました","おすすめしたいです","また来たいです","家族や友人にも紹介したいです"]
+  };
+
+  function createOptions(key, containerId){
+    const container = document.getElementById(containerId);
+    data[key].forEach((text, index) => {
+      const wrap = document.createElement("div");
+      wrap.className = "option";
+      wrap.innerHTML = `
+        <input type="radio" name="${key}" id="${key}${index}" value="${text}">
+        <label for="${key}${index}">${text}</label>
+      `;
+      container.appendChild(wrap);
+    });
+  }
+
+  createOptions("menu","menuOptions");
+  createOptions("worry","worryOptions");
+  createOptions("result","resultOptions");
+  createOptions("staff","staffOptions");
+  createOptions("ending","endingOptions");
+
+  function selected(name){
+    const item = document.querySelector(`input[name="${name}"]:checked`);
+    return item ? item.value : "";
+  }
+
+  function generateReview(){
+    const shopName = document.getElementById("shopName").value.trim();
+    const shopArea = document.getElementById("shopArea").value.trim();
+    const menu = selected("menu");
+    const worry = selected("worry");
+    const result = selected("result");
+    const staff = selected("staff");
+    const ending = selected("ending");
+
+    if(!menu || !worry || !result || !staff || !ending){
+      document.getElementById("status").textContent = "選択項目を1つずつ選んでください。";
+      return;
+    }
+
+    const shopText = shopName ? `${shopName}に` : "こちらの美容室に";
+    const areaText = shopArea ? `${shopArea}にあり、` : "";
+    const patterns = [
+      `${areaText}${shopText}伺いました。${worry}が気になっていたため、今回は${menu}をお願いしました。${staff}ので安心して過ごせました。仕上がりは${result}のでとても嬉しいです。${ending}。`,
+      `${shopName ? shopName + "は、" : "お店は、"}${areaText}${staff}のが印象的でした。今回は${worry}を相談して${menu}をお願いしましたが、施術後は${result}と感じました。初めての方でも相談しやすいと思います。${ending}。`,
+      `${areaText}${shopText}伺い、${worry}について相談しました。${staff}ので緊張せず、リラックスして過ごせました。${menu}の仕上がりも${result}ので満足しています。${ending}。`,
+      `${shopName ? shopName + "で" : "こちらのお店で"}${menu}をお願いしました。来店前は${worry}が悩みでしたが、丁寧に相談に乗っていただき、${result}と実感しました。特に${staff}のが嬉しく、また通いたくなる雰囲気でした。${ending}。`
+    ];
+
+    const text = patterns[Math.floor(Math.random() * patterns.length)];
+    document.getElementById("reviewText").value = text;
+    document.getElementById("status").textContent = "口コミ文が完成しました。";
+    document.getElementById("reviewText").scrollIntoView({behavior:"smooth", block:"center"});
+  }
+
+  async function copyReview(){
+    const text = document.getElementById("reviewText").value.trim();
+    if(!text){
+      document.getElementById("status").textContent = "先に口コミ文を作成してください。";
+      return;
+    }
+    try{
+      await navigator.clipboard.writeText(text);
+      document.getElementById("status").textContent = "コピーしました。投稿画面に貼り付けてください。";
+    }catch(e){
+      const area = document.getElementById("reviewText");
+      area.select();
+      document.execCommand("copy");
+      document.getElementById("status").textContent = "コピーしました。";
+    }
+  }
+
+  function openReview(type){
+    const text = document.getElementById("reviewText").value.trim();
+    if(!text){
+      document.getElementById("status").textContent = "先に口コミ文を作成してください。";
+      return;
+    }
+    window.open(REVIEW_URLS[type], "_blank", "noopener");
+  }
+</script>
+</body>
+</html>
